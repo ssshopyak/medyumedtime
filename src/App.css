@@ -1,5 +1,4 @@
 .App {
-  width: 100vw;
   height: 100vh;
   text-align: center;
   display: flex;
@@ -22,13 +21,27 @@
 }
 
 .Workers {
-  height: 10%;
+  height: 15%;
   background-color: #fff;
   border: 1px solid #757575
 }
 
 .Time {
-  height: 85%;
+  height: 80%;
   background-color: #fff;
   border: 1px solid #757575
 }
+
+.WorkersText {
+  font-size: 12px;
+}
+.WorkersDiv {
+ width: fit-content;
+ padding: 5px;
+}
+ul, li {
+  display:inline
+}
+
+nav ul{height:200px; width:18%;}
+nav ul{overflow:hidden; overflow-x:scroll;}
