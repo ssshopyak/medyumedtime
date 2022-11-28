@@ -70,7 +70,7 @@ function App() {
         <Calendar 
           onChange={onChange}
           onClickDay={callDay}
-          value={value}/>
+          value={DateTime.fromISO(startDate).toJSDate()}/>
       </div>
       <div className='RightMenu'>
         <div className='Buttons'>
