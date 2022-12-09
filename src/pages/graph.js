@@ -1,19 +1,19 @@
-import './App.css';
+import '../App.css';
 import Calendar from 'react-calendar'
 import { useState, useEffect } from 'react';
 import { ScrollMenu } from 'react-horizontal-scrolling-menu';
-import { LeftArrow, RightArrow } from "./components/Arrows";
+import { LeftArrow, RightArrow } from "../components/Arrows";
 import { DateTime } from "luxon";
 import { Button } from '@mui/material';
-import leftArrow from './img/angle-small-left.png'
-import rightArrow from './img/angle-small-right.png'
-import menuButton from './img/menu-burger.png'
-import "./components/hideScrollbar.css";
-import './components/Calendar.css';
+import leftArrow from '../img/angle-small-left.png'
+import rightArrow from '../img/angle-small-right.png'
+import menuButton from '../img/menu-burger.png'
+import "../components/hideScrollbar.css";
+import '../components/Calendar.css';
 
 const Date = DateTime.now()
 
-function App() {
+function Graph() {
   const [value, onChange] = useState(Date.toJSDate());
   const [workers, setWorkers] = useState([])
   const [startDate, setStartDate] = useState(Date.toFormat('yyyy-MM-dd'))
@@ -37,12 +37,11 @@ function App() {
   }
 
   useEffect(()=>{
-    fetch('https://shevacryptoproxy.herokuapp.com/https://medymed.ru/1c/hs/api/v3/appointment_trainers?start_date='+startDate+'&end_date='+startDate+'&club_id=7a0c5e20-309d-11eb-bbe0-0050568303be',{
+    fetch('https://corsproxy.io/?' + encodeURIComponent('https://medymed.ru/1c/hs/api/v3/appointment_trainers?start_date='+ startDate +'&end_date='+ startDate +'&club_id=7a0c5e20-309d-11eb-bbe0-0050568303be'),{
       method:'get',
       headers:{
-        'Authorization': 'Basic QVBJOkFQSQ==', 
+        'Authorization': 'Basic ' + btoa('api:api'),
         'apikey': 'dc417d9b-7574-4046-bb7b-240b45407331',
-        'Content-Type': 'application/json',
         'usertoken': '87DD135CCEDFAC4479C311D9563B01C4' 
       }, 
     })
@@ -99,4 +98,4 @@ function App() {
   );
 }
 
-export default App;
+export default Graph;
