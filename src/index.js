@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import ReactDOM from 'react-dom/client';
 import {
   createBrowserRouter,
@@ -9,22 +9,32 @@ import './index.css';
 import Graph from './pages/graph';
 import LoginForm from './pages/login'
 import reportWebVitals from './reportWebVitals';
+import TimeGraph from './components/TimeGraph';
 
-const router = createBrowserRouter([
+const isAuthorizated = JSON.parse(localStorage.getItem('isAuthorizated'))
+console.log(isAuthorizated)
+const logined = createBrowserRouter([
+  {
+    path: "/",
+    element: <Graph />,
+  },
+  {
+    path: "test",
+    element: <TimeGraph/>
+  }
+]);
+
+const unLogined = createBrowserRouter([
   {
     path:"/",
     element: <LoginForm />
-  },
-  {
-    path: "graph",
-    element: <Graph />,
   },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-     <RouterProvider router={router} />
+    <RouterProvider router={isAuthorizated ? logined : unLogined }/> 
   </React.StrictMode>
 );
 

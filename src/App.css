@@ -1,5 +1,4 @@
 .App {
-  height: 100vh;
   text-align: center;
   display: flex;
   flex-direction: row;
@@ -45,11 +44,16 @@
 }
 
 .Time {
-  height: 80%;
+  height: 2000px;
   background-color: #fff;
   border: 1px solid #c7c7c7;
 }
 
+.eventInfo {
+  width: fit-content;
+  height: fit-content;
+  background-color: aqua;
+}
 .WorkersText {
   font-size: 12px;
 }
@@ -64,8 +68,21 @@
   height: 50px;
 }
 
-ul, li {
-  display:inline
+.hour{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hour:nth-of-type(2n){
+  filter: brightness(1.2);
+}
+
+.event{
+  border-radius: 5px;
+  width: calc(100% - 2px);
+  border: 1px solid;
+  cursor: pointer;
 }
 
 nav ul{height:200px; width:18%;}

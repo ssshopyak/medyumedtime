@@ -28,24 +28,6 @@ const Form = props => (
    </div>
 );
 
-const onAuth = (phone) => {
-    fetch('https://corsproxy.io/?' + encodeURIComponent('https://medymed.ru/1c/hs/appservice/AvtorizovatPolzovatelja'),{
-      method:'post',
-      headers:{
-        'Authorization': 'Basic ' + btoa('api:api'),
-        'apikey': 'dc417d9b-7574-4046-bb7b-240b45407331',
-        'usertoken': '87DD135CCEDFAC4479C311D9563B01C4' 
-      },
-      body:JSON.stringify({
-        "NomerTelefona":phone
-      })
-    })
-    .then((res)=>{
-        let data = res.json()
-        data.then((res)=> { PhoneCode = res.Sotrudnik.Kod })
-    })
-}
-
 const Modal = ({ show, children, closeHandler }) => {
     return (
       <div
@@ -66,13 +48,35 @@ const FormInput = props => {
     const [phone,setPhone] = useState('+7')
     const [showModal, setShowModal] = useState(false);
     const [result, setResult] = useState();
-    const navigate = useNavigate();
+    const navigate = useNavigate()
     const handleOnChange = (res) => {
       setResult(res);
       if(res === PhoneCode && res.length === 9) {
-        navigate('graph', { replace: true });
+        
       }
     };
+
+    const onAuth = () => {
+      fetch('https://corsproxy.io/?' + encodeURIComponent('https://medymed.ru/1c/hs/appservice/AvtorizovatPolzovatelja'),{
+        method:'post',
+        headers:{
+          'Authorization': 'Basic ' + btoa('api:api'),
+          'apikey': 'dc417d9b-7574-4046-bb7b-240b45407331',
+          'usertoken': '87DD135CCEDFAC4479C311D9563B01C4' 
+        },
+        body:JSON.stringify({
+          "NomerTelefona":phone
+        })
+      })
+      .then((res)=>{
+          if(res.status === 200) {
+            let data = res.json()
+            data.then((res)=> { localStorage.setItem('isAuthorizated',JSON.stringify(true)) })
+            window.location.reload(false);
+          }
+      })
+  }
+
     return(
         <>
             <div className="row">
@@ -80,7 +84,7 @@ const FormInput = props => {
                 <input type={props.type} placeholder={props.placeholder} value={phone} onChange={(e) => setPhone(e.target.value)} />
             </div>
             <div id="button" className="row">
-                <button onClick={()=>{setShowModal(true); onAuth(phone);}}>Войти</button>
+                <button onClick={onAuth}>Войти</button>
             </div>
             <Modal show={showModal} closeHandler={setShowModal}>
                 <AuthCode onChange={handleOnChange} length={9} containerClassName='container' inputClassName='input'/>

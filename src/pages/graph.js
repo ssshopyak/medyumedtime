@@ -8,6 +8,7 @@ import { Button } from '@mui/material';
 import leftArrow from '../img/angle-small-left.png'
 import rightArrow from '../img/angle-small-right.png'
 import menuButton from '../img/menu-burger.png'
+import TimeGraph from '../components/TimeGraph';
 import "../components/hideScrollbar.css";
 import '../components/Calendar.css';
 
@@ -17,7 +18,6 @@ function Graph() {
   const [value, onChange] = useState(Date.toJSDate());
   const [workers, setWorkers] = useState([])
   const [startDate, setStartDate] = useState(Date.toFormat('yyyy-MM-dd'))
-
 
   const plusDay = () => {
     const date = DateTime.fromISO(startDate)
@@ -29,13 +29,17 @@ function Graph() {
     setStartDate(date.minus({days:1}).toFormat('yyyy-MM-dd'))
   }
 
+  const toToday = () => {
+    const date = DateTime.now()
+    setStartDate(date.toFormat('yyyy-MM-dd'))
+  }
+
   const callDay = (clikedDay) => { setStartDate(DateTime.fromJSDate(clikedDay).toFormat('yyyy-MM-dd'))};
 
   const buttonsSX = {
     color:'#000',
     border: '1px solid #c7c7c7'
   }
-
   useEffect(()=>{
     fetch('https://corsproxy.io/?' + encodeURIComponent('https://medymed.ru/1c/hs/api/v3/appointment_trainers?start_date='+ startDate +'&end_date='+ startDate +'&club_id=7a0c5e20-309d-11eb-bbe0-0050568303be'),{
       method:'get',
@@ -62,7 +66,6 @@ function Graph() {
     </>
   );
 
-
   return (
     <div className="App">
       <div className="LeftMenu">
@@ -75,7 +78,7 @@ function Graph() {
         <div className='Buttons'>
           <div>
             <Button variant="outlined" sx={buttonsSX}><img src={menuButton}/></Button>
-            <Button variant="outlined" sx={buttonsSX}>Сегодня?</Button>
+            <Button variant="outlined" sx={buttonsSX} onClick={toToday}>Сегодня</Button>
             <Button variant="outlined" sx={buttonsSX} onClick={minusDay}><img src={leftArrow}/></Button>
             <Button variant="outlined" sx={buttonsSX} onClick={plusDay}><img src={rightArrow}/></Button>
             {DateTime.fromISO(startDate).setLocale('ru').toFormat('dd LLL cccc')}
@@ -92,7 +95,9 @@ function Graph() {
             {listItems}
           </ScrollMenu>
         </div>
-        <div className='Time'>graphik</div>
+        <div className='Time'>
+          <TimeGraph startDate={startDate}/>
+        </div>
       </div>
     </div>
   );
