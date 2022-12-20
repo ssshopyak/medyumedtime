@@ -72,7 +72,7 @@ const FormInput = props => {
           if(res.status === 200) {
             let data = res.json()
             data.then((res)=> { localStorage.setItem('isAuthorizated',JSON.stringify(true)) })
-            window.location.reload(false);
+            setTimeout(()=>{window.location.reload(false);},2000)
           }
       })
   }
