@@ -34,7 +34,7 @@ const unLogined = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={isAuthorizated ? logined : unLogined }/> 
+    <RouterProvider router={isAuthorizated ? logined : logined }/> 
   </React.StrictMode>
 );
 
